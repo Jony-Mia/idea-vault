@@ -2,15 +2,20 @@
 import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
 import Link from "next/link";
 // import { Bars, BookOpen, Person, ArrowRightFromSquare } from '@gravity-ui/icons';
-// import { authClient, useSession } from "@/lib/auth-client";
+import { authClient, getSession, useSession } from "@/lib/auth-client";
 import { usePathname, useRouter } from "next/navigation";
 import { nunito } from "@/app/layout";
 import BookLogo from "@/app/assets/logo.png"
 import Image from "next/image";
+import ToggleTheme from "./ToggleTheme";
+import { useTheme } from "next-themes";
 const Navbar = () => {
-    // const { data } = useSession();
+    const { data } = getSession()
+    console.log(data);
+    
     // const router = useRouter();
     const path = usePathname();
+    const {theme} = useTheme()
 
     // const userInitials = data?.user?.name
     //     ? data.user.name
@@ -130,8 +135,9 @@ const Navbar = () => {
                             </div>
                         ) : ( */}
                         <div className="flex items-center gap-3">
+                            <ToggleTheme/>
                             <Link href="/login">
-                                <Button variant="ghost" className="font-medium">
+                                <Button variant="outline" className={`font-medium ${theme==="light"?"text-black":"text-white"} `}>
                                     Login
                                 </Button>
                             </Link>

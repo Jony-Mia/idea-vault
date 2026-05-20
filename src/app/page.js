@@ -1,10 +1,15 @@
 import Hero from "@/component/Hero";
+import ServiceCategory from "@/component/ServiceCategory";
 
 export default function Home() {
   return (
     <>
-      <h2>Hello world</h2>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
       <Hero/>
+      <ServiceCategory/>
     </>
   )
 }
