@@ -76,7 +76,7 @@ export default function Login() {
           <FieldError />
         </TextField>
 
-        <div className={`flex dark:bg-white justify-center gap-2`}>
+        <div className={`flex  justify-center gap-2`}>
           <Button onClick={continueWithGoogle} type="submit" className={"w-full font-bold"}>
             Login
           </Button>

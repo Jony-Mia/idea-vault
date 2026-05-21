@@ -1,3 +1,4 @@
+import Featured from "@/component/Featured";
 import Hero from "@/component/Hero";
 import ServiceCategory from "@/component/ServiceCategory";
 
@@ -10,6 +11,7 @@ export default function Home() {
     <br/>
       <Hero/>
       <ServiceCategory/>
+      <Featured/>
     </>
   )
 }

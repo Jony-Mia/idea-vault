@@ -2,9 +2,10 @@ import { Geist, Geist_Mono, Nunito,Poppins } from "next/font/google";
 import Navbar from "@/component/Navbar";
 import "./globals.css";
 import Footer from "@/component/Footer";
-import { ThemeProvider } from "next-themes";
+// import { ThemeProvider } from "next-themes";
 import ThemeValue from "@/component/Theme";
-import ThemeContextProvider from "@/context/ThemeContextProvider";
+import { ThemeProvider } from "next-themes";
+// import ThemeContextProvider from "@/context/ThemeContextProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,8 +28,8 @@ export default function RootLayout({ children }) {
     
     <html data-theme={<ThemeValue/>} lang="en" suppressHydrationWarning  className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} >
       <body className="min-h-full flex flex-col">
-      <ThemeProvider>
         <Navbar/>
+      <ThemeProvider>
         {children}
     </ThemeProvider>
         <Footer/>
