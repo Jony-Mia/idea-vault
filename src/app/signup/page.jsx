@@ -1,11 +1,10 @@
 "use client";
 
-import { Form, Button, Input, Label, Modal, Surface, Separator, TextField, InputGroup, Checkbox } from "@heroui/react";
+import { Form, Button, Input, Label,TextField, Checkbox } from "@heroui/react";
 import Image from "next/image";
 import IdeaVault from "@/app/assets/logo.png"
 import google from "@/app/assets/google.png"
 import Link from "next/link";
-import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 
@@ -16,15 +15,15 @@ export default function WithForm() {
     const formData = new FormData(e.currentTarget);
 
     const data = Object.fromEntries(formData.entries())
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
     await authClient.signUp.email({
       name: data.name,
       password: data.password,
-      email: data.email
+      email: data.email,
+      callbackURL:"/"
     })
   };
 
-const continueWithGoogle =  async()=>{
+const continueWithGoogle =  async ()=>{
     await authClient.signIn.social({
       provider: "google",
     });
@@ -80,7 +79,7 @@ const continueWithGoogle =  async()=>{
 
 
           <div>
-            <Button variant="outline" className="flex items-center w-full gap-2 mx-auto mt-5">
+            <Button onClick={continueWithGoogle} variant="outline" className="flex dark:bg-white dark:text-black items-center w-full gap-2 mx-auto mt-5">
               <Image alt="Cntinue with Google" src={google} height={"20"} width={"20"} />
               Cntinue with Google
             </Button>

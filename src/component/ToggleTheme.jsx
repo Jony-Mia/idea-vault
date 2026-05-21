@@ -3,8 +3,8 @@
 import Moon from "@/app/assets/moon.png"
 import Sun from "@/app/assets/sun.png"
 import { Button } from "@heroui/react";
-import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 
 export default function ToggleTheme() {

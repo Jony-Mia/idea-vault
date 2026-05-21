@@ -2,16 +2,30 @@
 import { Check } from "lucide-react";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import IdeaVault from "@/app/assets/logo.png"
+import google from "@/app/assets/google.png"
 import Image from "next/image";
+import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
 
 export default function Login() {
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries())
-    alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
-  };
+    // alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
 
+    await authClient.signUp.email({
+      // name: data.name,
+      email: data.email,
+      password: data.password,
+      callbackURL: "/"
+    })
+  };
+  const continueWithGoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  }
   return (
     <div className="flex h-screen justify-center items-center">
 
@@ -62,9 +76,19 @@ export default function Login() {
           <FieldError />
         </TextField>
 
-        <div className="flex justify-center gap-2">
-          <Button type="submit" className={"w-full font-bold"}>
+        <div className={`flex dark:bg-white justify-center gap-2`}>
+          <Button onClick={continueWithGoogle} type="submit" className={"w-full font-bold"}>
             Login
+          </Button>
+        </div>
+
+        <Link href="/login">Already have an account? <span className="text-blue-400">Login</span></Link>
+
+
+        <div>
+          <Button onClick={continueWithGoogle} variant="outline" className="flex dark:bg-white dark:text-black items-center w-full gap-2 mx-auto mt-5">
+            <Image alt="Cntinue with Google" src={google} height={"20"} width={"20"} />
+            Cntinue with Google
           </Button>
         </div>
       </Form>
