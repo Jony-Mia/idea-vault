@@ -1,4 +1,4 @@
-import { Sparkles, ShieldCheck, ArrowTrendingUp, Users } from "lucide-react";
+import { Sparkles, ShieldCheck, TrendingUp, Users } from "lucide-react";
 
 const benefits = [
     {
@@ -12,7 +12,7 @@ const benefits = [
         description: "Keep every idea under review with feedback, comments, tags, and progress hints for follow-up work.",
     },
     {
-        icon: ArrowTrendingUp,
+        icon: TrendingUp,
         title: "Growth focus",
         description: "Track market fit, revenue signals, and advancement stage so the best concepts can move faster.",
     },
