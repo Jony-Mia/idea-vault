@@ -1,36 +1,50 @@
 @import "tailwindcss";
 @import "@heroui/styles";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-/* 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
- :root {
-  /* Your default theme */
-  --background: white;
-  --foreground: black;
+  color-scheme: light;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --surface: #ffffff;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
 }
 
 [data-theme='dark'] {
-    --background: #102136;
-    --foreground: #ededed;
+  color-scheme: dark;
+  --background: #020617;
+  --foreground: #f8fafc;
+  --surface: #0f172a;
+  --muted: #94a3b8;
+  --border: #1f2937;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  background: var(--background) ;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: #7dd3fc;
+  color: #0f172a;
 }

@@ -31,6 +31,8 @@ console.log(idea);
 
   return (
     <section className="min-h-screen bg-slate-50 py-14 dark:bg-slate-950">
+      <br />
+      <br />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>

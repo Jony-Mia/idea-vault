@@ -129,7 +129,7 @@ const AddIdea = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
-            
+
             if (!response.ok) {
                 throw new Error('Unable to submit idea.');
             }
@@ -147,6 +147,9 @@ const AddIdea = () => {
     return (
         <div className="min-h-screen bg-slate-50 py-10 dark:bg-slate-950 sm:py-16">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                <br />
+                <br />
+                <br />
                 <PageHeader />
 
                 <div className="grid gap-8 lg:grid-cols-[1.75fr_1fr]">

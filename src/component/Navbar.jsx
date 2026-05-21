@@ -1,173 +1,138 @@
 "use client";
-import { Avatar, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/react";
+import { Button, Dropdown } from "@heroui/react";
 import Link from "next/link";
-import {  useSession } from "@/lib/auth-client";
-// import { Bars, BookOpen, Person, ArrowRightFromSquare } from '@gravity-ui/icons';
-// import { usePathname, useRouter } from "next/navigation";
-// import { useTheme } from "next-themes";
-import { nunito } from "@/app/layout";
-import BookLogo from "@/app/assets/logo.png"
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import { nunito } from "@/app/layout";
+import BookLogo from "@/app/assets/logo.png";
 import ToggleTheme from "./ToggleTheme";
 import { ArrowRightFromSquare, Bars, Person } from "@gravity-ui/icons";
 import { BookOpen } from "lucide-react";
-import Path from "@/app/lib/Path";
-import ThemeValue from "@/app/lib/ThemeValue";
-import Session from "@/app/lib/Session";
 import Logout from "@/app/lib/Logout";
-const Navbar = () => {
-    const { data } = useSession()
-    // const {data,user} =  await getSession()
-    // console.log(data, user);
-    // const router = useRouter();
-    
-        
-    const session = <Session />
-    const path = <Path />
-    const { theme } = <ThemeValue />
 
-    const userInitials = data?.user?.name
-        ? data.user.name
-            .split(' ')
+const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/all-book", label: "Ideas" },
+    { href: "/about", label: "About" },
+    { href: "/resources", label: "Resources" },
+    { href: "/contact", label: "Contact" },
+    { href: "/addIdea", label: "Add Idea" },
+];
+
+const Navbar = () => {
+    const pathname = usePathname();
+    const { data } = useSession();
+    const user = data?.user;
+
+    const userInitials = user?.name
+        ? user.name
+            .split(" ")
             .map((part) => part[0])
-            .join('')
+            .join("")
             .slice(0, 2)
             .toUpperCase()
-        : 'Name';
+        : "IV";
 
+    const isActive = (href) => pathname === href;
 
     return (
-        <div>
-            {/* Desktop Navbar */}
-            <nav className="fixed top-0 py-2 z-40 w-full border-b border-slate-200/50 hidden lg:block bg-white/95 backdrop-blur-lg shadow-sm">
-                <header className="flex h-16 items-center justify-between px-6">
-                    <div className="flex items-center gap-3">
-                        <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-                            <div className=" p-2 rounded-xl">
-                                {/* <BookOpen className="h-6 w-6 text-white" /> */}
-                                <Image src={BookLogo} alt={"Book Logo"} height="50" width="50" className="rounded-full" />
-                            </div>
-                            <span className={`${nunito.className} text-xl font-bold text-slate-900`}><span className="text-blue-400 font-bold">Idea</span> Vault</span>
-                        </Link>
+        <div className="border-b border-slate-200/70 bg-white/95 backdrop-blur-xl shadow-sm">
+            <nav className="mx-auto flex h-24 max-w-7xl items-center justify-between px-5 sm:px-6 lg:px-8">
+                <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+                    <div className="rounded-2xl bg-slate-100 p-2 shadow-sm shadow-slate-200/50">
+                        <Image src={BookLogo} alt="Idea Vault Logo" height="48" width="48" className="rounded-full" />
                     </div>
+                    <div>
+                        <p className={`${nunito.className} text-lg font-semibold text-slate-900`}>Idea Vault</p>
+                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Startup idea studio</p>
+                    </div>
+                </Link>
 
-                    <ul className="flex items-center gap-8">
-                        <li>
+                <ul className="hidden items-center gap-4 lg:flex">
+                    {navItems.map((item) => (
+                        <li key={item.href}>
                             <Link
-                                className={`px-3 py-2 rounded-lg transition-colors ${path === '/'
-                                    ? 'text-blue-400 px-4 bg-[#c8eff683] font-semibold'
-                                    : 'text-slate-600 hover:text-blue-400 hover:bg-slate-50'
+                                href={item.href}
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition ${isActive(item.href)
+                                    ? "bg-blue-100 text-blue-600"
+                                    : "text-slate-600 hover:bg-slate-100 hover:text-blue-600"
                                     }`}
-                                href="/"
                             >
-                                Home
+                                {item.label}
                             </Link>
                         </li>
+                    ))}
+                    {user && (
                         <li>
                             <Link
-                                className={`px-3 py-2 rounded-lg transition-colors ${path === '/all-book'
-                                    ? 'text-blue-400 px-4 bg-[#c8eff683] font-semibold'
-                                    : 'text-slate-600 hover:text-blue-400 hover:bg-slate-50'
+                                href="/profile"
+                                className={`rounded-full px-4 py-2 text-sm font-medium transition ${isActive("/profile")
+                                    ? "bg-orange-100 text-orange-600"
+                                    : "text-slate-600 hover:bg-slate-100 hover:text-orange-600"
                                     }`}
-                                href="/all-book"
                             >
-                                Ideas
+                                Profile
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                className={`px-3 py-2 rounded-lg transition-colors ${path === '/addIdea'
-                                    ? 'text-blue-400 px-4 bg-[#c8eff683] font-semibold'
-                                    : 'text-slate-600 hover:text-blue-400 hover:bg-slate-50'
-                                    }`}
-                                href="/addIdea"
-                            >
-                                Add Ideas
-                            </Link>
-                        </li>
-                        {data?.user && (
-                            <li>
-                                <Link
-                                    className={`px-3 py-2 rounded-lg transition-colors ${path === '/profile'
-                                            ? 'text-[#df8620] bg-[#fff7ed] font-semibold'
-                                            : 'text-slate-600 hover:text-[#df8620] hover:bg-slate-50'
-                                        }`}
-                                    href="/profile"
-                                >
-                                    Profile
-                                </Link>
-                            </li>
-                        )}
-                    </ul>
+                    )}
+                </ul>
 
-                    <div className="flex items-center gap-4">
-                        <ToggleTheme/>
-                        {data?.user ? (
-                            <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#df8620] to-[#fe9a00] text-white font-semibold shadow-md">
-                                        {userInitials}
-                                    </div>
-                                    <div className="hidden md:block">
-                                        <p className={`${nunito.className} text-sm font-semibold text-slate-900`}>
-                                            {data.user.name}
-                                        </p>
-                                        <p className="text-xs text-slate-500">{data.user.email}</p>
-                                    </div>
+                <div className="flex items-center gap-3">
+                    <ToggleTheme />
+                    {user ? (
+                        <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-3 rounded-full bg-linear-to-br from-orange-500 to-yellow-400 px-3 py-2 text-white shadow-md">
+                                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900/10 text-sm font-semibold">
+                                    {userInitials}
+                                </span>
+                                <div className="hidden sm:block">
+                                    <p className="text-sm font-semibold text-slate-900">{user.name}</p>
+                                    <p className="text-[11px] text-slate-500">{user.email}</p>
                                 </div>
-
-                                <Dropdown>
-                                    {/* <Dropdown.Trigger>  */}
-                                    <Button variant="outline"  className={`font-medium ${theme !== "light" ? "text-black" : "text-white"} p-2 `}>
-                                        <Bars className="h-5 w-5" />
-                                        Bars
-                                    </Button>
-                                    {/* </Dropdown.Trigger> */}
-                                    <Dropdown.Popover>
-
-                                        <Dropdown.Menu aria-label="User menu">
-                                            <Dropdown.Item key="profile" as={Link} href="/profile">
-                                                <div className="flex items-center gap-2">
-                                                    <Person className="h-4 w-4" />
-                                                    My Profile
-                                                </div>
-                                            </Dropdown.Item>
-                                            <Dropdown.Item key="borrowed" as={Link} href="/borrowed">
-                                                <div className="flex items-center gap-2">
-                                                    <BookOpen className="h-4 w-4" />
-                                                    My Borrowed Books
-                                                </div>
-                                            </Dropdown.Item>
-
-                                            <Logout className="flex items-center gap-2 text-red-500">
-                                                <ArrowRightFromSquare className="h-4 w-4 text-red-500" />
-                                                <span className="text-red-500">
-
-                                                Sign Out
-                                                </span>
-                                            </Logout>
-
-                                        </Dropdown.Menu>
-
-                                    </Dropdown.Popover>
-                                </Dropdown>
                             </div>
-                        ) : (
-                            <div className="flex items-center gap-3">
-                                <Link href="/login">
-                                    <Button variant="outline" className={`font-medium ${theme !== "light" ? "text-black" : "text-white"} `}>
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link href="/signup">
-                                    <Button className="bg-blue-400 text-white font-semibold rounded-lg px-6 py-2 hover:shadow-lg transition-all">
-                                        Sign Up
-                                    </Button>
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                </header>
+
+                            <Dropdown>
+                                <Button variant="outline" className="p-2 text-slate-700">
+                                    <Bars className="h-5 w-5" />
+                                </Button>
+                                <Dropdown.Popover>
+                                    <Dropdown.Menu aria-label="User menu">
+                                        <Dropdown.Item key="profile" as={Link} href="/profile">
+                                            <div className="flex items-center gap-2">
+                                                <Person className="h-4 w-4" />
+                                                My Profile
+                                            </div>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item key="ideas" as={Link} href="/all-book">
+                                            <div className="flex items-center gap-2">
+                                                <BookOpen className="h-4 w-4" />
+                                                Browse ideas
+                                            </div>
+                                        </Dropdown.Item>
+                                        <Logout className="flex items-center gap-2 text-red-500">
+                                            <ArrowRightFromSquare className="h-4 w-4 text-red-500" />
+                                            <span className="text-red-500">Sign Out</span>
+                                        </Logout>
+                                    </Dropdown.Menu>
+                                </Dropdown.Popover>
+                            </Dropdown>
+                        </div>
+                    ) : (
+                        <div className="hidden items-center gap-3 sm:flex">
+                            <Link href="/login">
+                                <Button variant="outline" className="font-medium text-slate-700">
+                                    Login
+                                </Button>
+                            </Link>
+                            <Link href="/signup">
+                                <Button className="rounded-full bg-blue-500 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-600">
+                                    Sign Up
+                                </Button>
+                            </Link>
+                        </div>
+                    )}
+                </div>
             </nav>
         </div>
     );
