@@ -1,0 +1,3 @@
+MONGODB_URI=mongodb+srv://jony_mia:jony_mia_db@cluster0.faotqao.mongodb.net/?appName=Cluster0
+GOOGLE_AUTH_CLIENT_ID=119499284078-7jh64gfnbsajmqaoi0eh9qhv3d965qsn.apps.googleusercontent.com
+GOOGLE_AUTH_SECRET_KEY=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
