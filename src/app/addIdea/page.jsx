@@ -1,9 +1,10 @@
 "use client";
 
+import { Button, Input, Label, ListBox, TextArea, Select, TextField } from '@heroui/react';
 import { useEffect, useRef, useState } from 'react';
-import { revealSectionItems } from '@/lib/gsap-animations';
+// import { revealSectionItems } from '@/lib/gsap-animations';
 
-const STARTUP_CATEGORIES = [
+const ideaCategories = [
     { value: 'technology', label: 'Technology' },
     { value: 'fintech', label: 'FinTech' },
     { value: 'healthcare', label: 'Healthcare' },
@@ -22,16 +23,16 @@ const DIFFICULTY_LEVELS = [
     { value: 'high', label: 'Hard' },
 ];
 
-const InputField = ({ id, label, required, error, children }) => (
-    <div className="space-y-3">
-        <label htmlFor={id} className="font-semibold text-slate-700 dark:text-slate-200">
-            {label}
-            {required && <span className="text-red-500">*</span>}
-        </label>
-        {children}
-        {error && <p className="text-sm text-red-500">{error}</p>}
-    </div>
-);
+// const TextField = ({ id, label, required, error, children }) => (
+//     <div className="space-y-3">
+//         <label htmlFor={id} className="font-semibold text-slate-700 dark:text-slate-200">
+//             {label}
+//             {required && <span className="text-red-500">*</span>}
+//         </label>
+//         {children}
+//         {error && <p className="text-sm text-red-500">{error}</p>}
+//     </div>
+// );
 
 const PageHeader = () => (
     <div className="mb-10 text-center">
@@ -79,11 +80,11 @@ const AddIdea = () => {
     const [tagInput, setTagInput] = useState('');
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const pageRef = useRef(null);
+    // const pageRef = useRef(null);
 
-    useEffect(() => {
-        revealSectionItems(pageRef);
-    }, []);
+    // useEffect(() => {
+    //     revealSectionItems(pageRef);
+    // }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -122,21 +123,21 @@ const AddIdea = () => {
         setErrors({});
     };
 
-    const validate = () => {
-        const validationErrors = {};
-        if (!formData.title.trim()) validationErrors.title = 'Title is required.';
-        if (!formData.category) validationErrors.category = 'Please choose a category.';
-        if (!formData.description.trim()) validationErrors.description = 'Brief description is required.';
-        if (!formData.problem.trim()) validationErrors.problem = 'Problem statement is required.';
-        if (!formData.solution.trim()) validationErrors.solution = 'Solution description is required.';
-        if (!formData.targetMarket.trim()) validationErrors.targetMarket = 'Target market is required.';
-        setErrors(validationErrors);
-        return Object.keys(validationErrors).length === 0;
-    };
+    // const validate = () => {
+    //     const validationErrors = {};
+    //     if (!formData.title.trim()) validationErrors.title = 'Title is required.';
+    //     if (!formData.category) validationErrors.category = 'Please choose a category.';
+    //     if (!formData.description.trim()) validationErrors.description = 'Brief description is required.';
+    //     if (!formData.problem.trim()) validationErrors.problem = 'Problem statement is required.';
+    //     if (!formData.solution.trim()) validationErrors.solution = 'Solution description is required.';
+    //     if (!formData.targetMarket.trim()) validationErrors.targetMarket = 'Target market is required.';
+    //     setErrors(validationErrors);
+    //     return Object.keys(validationErrors).length === 0;
+    // };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!validate()) return;
+        // if (!validate()) return;
 
         setIsLoading(true);
 
@@ -162,11 +163,11 @@ const AddIdea = () => {
     };
 
     return (
-        <div ref={pageRef} className="min-h-screen bg-slate-50 py-10 dark:bg-slate-950 sm:py-16">
+        <div className="min-h-screen bg-slate-50 py-10 dark:bg-slate-950 sm:py-16">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                <PageHeader />
+                {/* <PageHeader /> */}
 
-                <div className="mb-12 grid gap-6 sm:grid-cols-3">
+                {/* <div className="mb-12 grid gap-6 sm:grid-cols-3">
                     {[
                         { title: 'Fast capture', subtitle: 'Save the core details of your idea in one polished form.' },
                         { title: 'Clear validation', subtitle: 'Add market, problem, and solution insights for better feedback.' },
@@ -177,45 +178,40 @@ const AddIdea = () => {
                             <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-400">{item.subtitle}</p>
                         </div>
                     ))}
-                </div>
+                </div> */}
 
                 <div className="grid gap-8 lg:grid-cols-[1.75fr_1fr]">
                     <section className="reveal-item rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-200/40 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/20">
                         <form onSubmit={handleSubmit} className="space-y-8">
                             <div className="grid gap-6 sm:grid-cols-2">
-                                <InputField id="title" label="Idea title" required error={errors.title}>
-                                    <input
-                                        id="title"
-                                        name="title"
-                                        type="text"
+                                <TextField type="text" name="title" label="Idea title" required>
+                                    <Input
                                         value={formData.title}
                                         onChange={handleChange}
-                                        placeholder="AI-powered wellness planner"
+                                        placeholder="Name of Your Idea"
                                         className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
-
-                                <InputField id="category" label="Category" required error={errors.category}>
-                                    <select
-                                        id="category"
-                                        name="category"
-                                        value={formData.category}
-                                        onChange={handleChange}
-                                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
-                                    >
-                                        <option value="">Choose category</option>
-                                        {STARTUP_CATEGORIES.map((category) => (
-                                            <option key={category.value} value={category.value}>
-                                                {category.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </InputField>
+                                </TextField>
+                                 <Select   className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" placeholder="Select Categories">
+                                    {/* <Label>Level</Label> */}
+                                    <Select.Trigger>
+                                        <Select.Value />
+                                        <Select.Indicator />
+                                    </Select.Trigger>
+                                    <Select.Popover>
+                                        <ListBox>
+                                            {ideaCategories.map((category) => (
+                                                <ListBox.Item key={category.value} id={category.value} value={category.value}>
+                                                    {category.label}
+                                                </ListBox.Item>
+                                            ))}
+                                        </ListBox>
+                                    </Select.Popover>
+                                </Select>
                             </div>
 
-                            <InputField id="description" label="Brief description" required error={errors.description}>
-                                <textarea
-                                    id="description"
+                            <TextField id="description" label="Brief description" required error={errors.description}>
+                                <TextArea
                                     name="description"
                                     rows={4}
                                     value={formData.description}
@@ -223,12 +219,11 @@ const AddIdea = () => {
                                     placeholder="Write a short summary of the idea."
                                     className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                 />
-                            </InputField>
+                            </TextField>
 
                             <div className="grid gap-6 lg:grid-cols-2">
-                                <InputField id="problem" label="Problem statement" required error={errors.problem}>
-                                    <textarea
-                                        id="problem"
+                                <TextField id="problem" label="Problem statement" required error={errors.problem}>
+                                    <TextArea
                                         name="problem"
                                         rows={4}
                                         value={formData.problem}
@@ -236,11 +231,10 @@ const AddIdea = () => {
                                         placeholder="What issue does this idea solve?"
                                         className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
+                                </TextField>
 
-                                <InputField id="solution" label="Solution" required error={errors.solution}>
-                                    <textarea
-                                        id="solution"
+                                <TextField id="solution" label="Solution" required error={errors.solution}>
+                                    <TextArea
                                         name="solution"
                                         rows={4}
                                         value={formData.solution}
@@ -248,13 +242,12 @@ const AddIdea = () => {
                                         placeholder="How does your idea solve the problem?"
                                         className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
+                                </TextField>
                             </div>
 
                             <div className="grid gap-6 lg:grid-cols-2">
-                                <InputField id="targetMarket" label="Target market" required error={errors.targetMarket}>
-                                    <textarea
-                                        id="targetMarket"
+                                <TextField id="targetMarket" label="Target market" required error={errors.targetMarket}>
+                                    <TextArea
                                         name="targetMarket"
                                         rows={3}
                                         value={formData.targetMarket}
@@ -262,11 +255,10 @@ const AddIdea = () => {
                                         placeholder="Describe the ideal user or customer."
                                         className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
+                                </TextField>
 
-                                <InputField id="competitors" label="Competitors & alternatives">
-                                    <textarea
-                                        id="competitors"
+                                <TextField id="competitors" label="Competitors & alternatives">
+                                    <TextArea
                                         name="competitors"
                                         rows={3}
                                         value={formData.competitors}
@@ -274,45 +266,45 @@ const AddIdea = () => {
                                         placeholder="Who else is building something similar?"
                                         className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
+                                </TextField>
                             </div>
 
                             <div className="grid gap-6 lg:grid-cols-2">
-                                <InputField id="revenue" label="Revenue model">
-                                    <textarea
-                                        id="revenue"
-                                        name="revenue"
+                                <TextField name="revenue" aria-label="Revenue model">
+                                    <TextArea
                                         rows={3}
                                         value={formData.revenue}
                                         onChange={handleChange}
                                         placeholder="Subscription, commission, licensing, or other model."
                                         className="w-full rounded-[28px] border border-slate-300 bg-slate-50 px-4 py-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                                     />
-                                </InputField>
+                                </TextField>
 
-                                <InputField id="difficulty" label="Difficulty level">
-                                    <select
-                                        id="difficulty"
-                                        name="difficulty"
-                                        value={formData.difficulty}
-                                        onChange={handleChange}
-                                        className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
-                                    >
-                                        {DIFFICULTY_LEVELS.map((level) => (
-                                            <option key={level.value} value={level.value}>
-                                                {level.label}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </InputField>
+                                {/* <TextField id="difficulty" label="Difficulty level"> */}
+                                <Select className="w-[256px]" placeholder="Select Level">
+                                    <Label>Level</Label>
+                                    <Select.Trigger>
+                                        <Select.Value />
+                                        <Select.Indicator />
+                                    </Select.Trigger>
+                                    <Select.Popover>
+                                        <ListBox>
+                                            {DIFFICULTY_LEVELS.map((level) => (
+                                                <ListBox.Item key={level.value} id={level.value} value={level.value}>
+                                                    {level.label}
+                                                </ListBox.Item>
+                                            ))}
+                                        </ListBox>
+                                    </Select.Popover>
+                                </Select>
+                     
                             </div>
 
                             <div className="space-y-3">
-                                <InputField id="tags" label="Tags (optional)">
+                                <TextField name="tags" label="Tags (optional)">
                                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                                        <input
-                                            id="tags"
-                                            name="tags"
+                                        <Input
+
                                             value={tagInput}
                                             onChange={(event) => setTagInput(event.target.value)}
                                             onKeyDown={(event) => event.key === 'Enter' && (event.preventDefault(), addTag())}
@@ -320,18 +312,18 @@ const AddIdea = () => {
                                             placeholder="Examples: AI, marketplace, health"
                                             type="text"
                                         />
-                                        <button
+                                        <Button
                                             type="button"
                                             onClick={addTag}
                                             className="rounded-2xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 dark:bg-blue-600 dark:hover:bg-blue-500"
                                         >
                                             Add tag
-                                        </button>
+                                        </Button>
                                     </div>
-                                </InputField>
+                                </TextField>
                                 <div className="flex flex-wrap gap-2">
                                     {formData.tags.map((tag) => (
-                                        <button
+                                        <Button
                                             key={tag}
                                             type="button"
                                             onClick={() => removeTag(tag)}
@@ -341,7 +333,7 @@ const AddIdea = () => {
                                             <span className="rounded-full bg-slate-300 px-2 py-0.5 text-xs text-slate-700 dark:bg-slate-700 dark:text-slate-200">
                                                 ×
                                             </span>
-                                        </button>
+                                        </Button>
                                     ))}
                                 </div>
                             </div>
