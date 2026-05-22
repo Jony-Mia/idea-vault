@@ -50,7 +50,7 @@ export default async function AllBookPage() {
                             >
                                 <div className="relative h-64 w-full">
                                     <Image
-                                        src={previewImage}
+                                        src={idea.image}
                                         alt={idea.title}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 33vw"

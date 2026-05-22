@@ -1,33 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-// import { getIdeaById, getAllIdeaIds } from '@/lib/featuredIdeas';
-import Slide1 from '@/app/assets/Slide_1.png';
-import Slide2 from '@/app/assets/Slide_2.png';
-import Slide3 from '@/app/assets/Slide_3.png';
 import { GetIdeaDetails } from '@/app/api/api';
-// import { GetIdeaDetails } from '@/app/api/api';
 
-const imageMap = {
-  slide1: Slide1,
-  slide2: Slide2,
-  slide3: Slide3,
-};
-
-// export async function generateStaticParams() {
-//   return GetIdeaDetails();
-// }
 
 export default async function IdeaDetailsPage({ params }) {
   const {id} = await params;
   const idea = await GetIdeaDetails(id);
-console.log(idea);
-
-  // if (!idea) {
-  //   notFound();
-  // }
-
-  const ideaImage = imageMap[idea.image];
 
   return (
     <section className="min-h-screen bg-slate-50 py-14 dark:bg-slate-950">
@@ -55,7 +33,7 @@ console.log(idea);
           <div className="space-y-8">
             <div className="overflow-hidden rounded-[32px] bg-white shadow-xl shadow-slate-200/40 dark:bg-slate-900 dark:shadow-black/20">
               <div className="relative h-96 w-full">
-                <Image src={ideaImage} alt={idea.title} fill className="object-cover" />
+                <Image src={idea.image} alt={idea.title} fill className="object-cover" />
               </div>
               <div className="space-y-6 p-8">
                 <div className="flex flex-wrap items-center gap-3">

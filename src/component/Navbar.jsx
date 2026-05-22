@@ -14,7 +14,7 @@ import Logout from "@/app/lib/Logout";
 
 const navItems = [
     { href: "/", label: "Home" },
-    { href: "/all-book", label: "Ideas" },
+    { href: "/ideas", label: "Ideas" },
     { href: "/about", label: "About" },
     { href: "/resources", label: "Resources" },
     { href: "/contact", label: "Contact" },
@@ -23,9 +23,9 @@ const navItems = [
 
 const Navbar = () => {
     const pathname = usePathname();
+    const [menuOpen, setMenuOpen] = useState(false);
     const { data } = useSession();
     const user = data?.user;
-    const [menuOpen, setMenuOpen] = useState(false);
 
     const userInitials = user?.name
         ? user.name
@@ -71,7 +71,7 @@ const Navbar = () => {
                                                     My Profile
                                                 </div>
                                             </Dropdown.Item>
-                                            <Dropdown.Item key="ideas" as={Link} href="/all-book">
+                                            <Dropdown.Item key="ideas" as={Link} href="/ideas">
                                                 <div className="flex items-center gap-2">
                                                     <BookOpen className="h-4 w-4" />
                                                     Browse ideas
@@ -100,13 +100,44 @@ const Navbar = () => {
                             )}
                         </div>
 
-                        <Button variant="outline" className="sm:hidden p-2 text-slate-700" onClick={() => setMenuOpen((open) => !open)}>
-                            <Bars className="h-5 w-5" />
-                        </Button>
+                        {/* <ToggleTheme /> */}
+                        {/* <Button variant="outline" className="sm:hidden bg-red-400 p-2 text-slate-700" onClick={() => setMenuOpen((open) => !open)}> */}
+
+                        <div className="sm:hidden">
+                        <Dropdown className="">
+                            <Dropdown.Trigger variant="outline" className="sm:hidden bg-red-400 p-2 text-slate-700">
+                                <Bars className="h-5 w-5" />
+                            </Dropdown.Trigger>
+                            <Dropdown.Popover>
+                                <Dropdown.Menu aria-label="User menu">
+                                    <Dropdown.Item key="profile" as={Link} href="/profile">
+                                        <div className="flex items-center gap-2">
+                                            <Person className="h-4 w-4" />
+                                            My Profile
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Dropdown.Item key="ideas" as={Link} href="/ideas">
+                                        <div className="flex items-center gap-2">
+                                            <BookOpen className="h-4 w-4" />
+                                            Browse ideas
+                                        </div>
+                                    </Dropdown.Item>
+                                    <Logout className="flex items-center gap-2 text-red-500">
+                                        <ArrowRightFromSquare className="h-4 w-4 text-red-500" />
+                                        <span className="text-red-500">Sign Out</span>
+                                    </Logout>
+                                </Dropdown.Menu>
+                            </Dropdown.Popover>
+                        </Dropdown>
+
+
+                        </div>
+                        {/* <Bars className="h-5 w-5" /> */}
+                        {/* </Button> */}
                     </div>
                 </div>
 
-                <div className="hidden items-center justify-center rounded-[28px] border border-slate-200 bg-slate-50 px-4 py-3 shadow-inner shadow-slate-100/80 lg:flex">
+                <div className="hidden w-fit mx-auto items-center justify-center rounded-[28px] border border-slate-200 bg-slate-50 px-4 py-3 shadow-inner shadow-slate-100/80 lg:flex">
                     <ul className="flex flex-wrap items-center justify-center gap-3">
                         {navItems.map((item) => (
                             <li key={item.href}>

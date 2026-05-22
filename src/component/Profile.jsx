@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input } from "@heroui/react";
 import { useSession } from "@/lib/auth-client";
+import axios from "axios";
 
 const Profile = () => {
     const { data } = useSession();
@@ -16,10 +17,7 @@ const Profile = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [updating, setUpdating] = useState(false);
     const displayName = nameTouched ? name : user?.name || "";
-    const memberSince = useMemo(
-        () => (user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : ""),
-        [user]
-    );
+    const memberSince =  user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "";
 
     useEffect(() => {
         const fetchIdeas = async () => {
@@ -31,14 +29,15 @@ const Profile = () => {
 
             try {
                 setLoadingIdeas(true);
-                const response = await fetch("/api/ideas");
-                const payload = await response.json();
-
-                if (!response.ok) {
+                const response = await axios.get("http://localhost:4000/userCreated/ideas");
+                const payload = await response.data[0];
+                console.log(response);
+                
+                if (!response.status===200) {
                     setErrorMessage(payload?.error || "Unable to load your ideas.");
                     setIdeas([]);
                 } else {
-                    setIdeas(payload.ideas || []);
+                    setIdeas(payload || []);
                 }
             } catch (error) {
                 setErrorMessage("Unable to load your ideas.");
@@ -72,18 +71,14 @@ const Profile = () => {
         setStatusMessage("");
 
         try {
-            const response = await fetch("/api/auth/update-user", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name: updatedName }),
-            });
+            
 
-            const result = await response.json();
+            const response = await axios.post("/api/auth/update-user", { name: updatedName })
+            const result = await response.data;
 
             if (!response.ok) {
-                setErrorMessage(result?.message || result?.error || "Unable to update your name.");
+                setErrorMessage(result?.message || result?.error || "Updating.... your name.");
+                setTimeout(() => { window.location.reload(); }, 100);
             } else {
                 setStatusMessage("Name updated successfully. Reloading...");
                 setTimeout(() => {
@@ -91,6 +86,7 @@ const Profile = () => {
                 }, 800);
             }
         } catch (error) {
+            setTimeout(() => { window.location.reload(); }, 100);
             setErrorMessage("Unable to update your name. Please try again.");
         } finally {
             setUpdating(false);
@@ -98,7 +94,7 @@ const Profile = () => {
     };
 
     const totalCategories = [...new Set(ideas.map((idea) => idea.category))].length;
-    const totalTags = ideas.reduce((count, idea) => count + (idea.tags?.length || 0), 0);
+    // const totalTags = ideas.reduce((count, idea) => count + (idea.tags?.length || 0), 0);
 
     if (!user) {
         return (
@@ -113,9 +109,7 @@ const Profile = () => {
 
     return (
         <section className="max-w-6xl mx-auto px-4 py-16">
-            <br />
-            <br />
-            <br />
+
             <div className="mb-10 rounded-3xl border border-slate-200/80 bg-white/90 p-8 shadow-sm shadow-slate-200/50">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                     <div>
@@ -209,13 +203,13 @@ const Profile = () => {
                                             <p className="text-sm text-slate-500">{new Date(idea.createdAt).toLocaleDateString()}</p>
                                         </div>
                                         <p className="mt-4 text-slate-600 line-clamp-3">{idea.description}</p>
-                                        <div className="mt-4 flex flex-wrap gap-2">
+                                        {/* <div className="mt-4 flex flex-wrap gap-2">
                                             {idea.tags?.map((tag) => (
                                                 <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                                                     {tag}
                                                 </span>
                                             ))}
-                                        </div>
+                                        </div> */}
                                     </article>
                                 ))}
                             </div>
@@ -236,10 +230,10 @@ const Profile = () => {
                                 <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Categories used</p>
                                 <p className="mt-3 text-3xl font-semibold">{totalCategories}</p>
                             </div>
-                            <div className="rounded-3xl bg-slate-950/95 p-5 text-white">
+                            {/* <div className="rounded-3xl bg-slate-950/95 p-5 text-white">
                                 <p className="text-sm uppercase tracking-[0.2em] text-slate-300">Tags added</p>
                                 <p className="mt-3 text-3xl font-semibold">{totalTags}</p>
-                            </div>
+                            </div> */}
                         </div>
                     </section>
 
