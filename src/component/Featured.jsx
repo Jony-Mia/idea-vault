@@ -79,7 +79,7 @@ const Featured = () => {
                             >
                                 <div className="relative h-60 w-full">
                                     <Image
-                                        src={previewImage}
+                                        src={idea.image}
                                         alt={idea.title}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 33vw"

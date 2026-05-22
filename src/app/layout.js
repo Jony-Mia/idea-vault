@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem>
           <Navbar />
-          <main className="flex-1 pt-24">{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>

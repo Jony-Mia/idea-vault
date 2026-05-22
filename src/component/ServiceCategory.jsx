@@ -18,14 +18,14 @@ const categories = [
 ];
 
 const ServiceCategory = () => {
-  const sectionRef = useRef(null);
+  // const sectionRef = useRef(null);
 
-  useEffect(() => {
-    revealCards(sectionRef);
-  }, []);
+  // useEffect(() => {
+  //   revealCards(sectionRef);
+  // }, []);
 
   return (
-    <section ref={sectionRef} className="bg-slate-50 py-16 dark:bg-slate-950">
+    <section className="bg-slate-50 py-16 dark:bg-slate-950">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <div className="mb-10 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.35em] text-blue-600 dark:text-blue-300">

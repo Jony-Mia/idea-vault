@@ -38,7 +38,7 @@ const continueWithGoogle =  async ()=>{
       <br />
       <div className="flex mt-10 justify-center items-center">
 
-        <Form className="flex shadow shadow-blue-300 p-5 rounded-2xl mx-auto  w-126 flex-col gap-4" onSubmit={onSubmit}>
+        <Form className="flex bg-white shadow shadow-blue-300 p-5 rounded-2xl mx-auto  w-126 flex-col gap-4" onSubmit={onSubmit}>
           {/* <Button variant="secondary">Open Contact Form</Button> */}
 
           <div className="flex justify-center items-center flex-col" >

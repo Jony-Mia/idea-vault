@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { CheckCircle, Rocket, Sparkles, Users } from 'lucide-react';
-import { revealSectionItems } from "@/lib/gsap-animations";
+// import { revealSectionItems } from "@/lib/gsap-animations";
 
 const steps = [
     {
@@ -22,14 +22,14 @@ const steps = [
 ];
 
 const HowItWorks = () => {
-    const sectionRef = useRef(null);
+    // const sectionRef = useRef(null);
 
-    useEffect(() => {
-        revealSectionItems(sectionRef);
-    }, []);
+    // useEffect(() => {
+    //     revealSectionItems(sectionRef);
+    // }, []);
 
     return (
-        <section ref={sectionRef} className="bg-white py-16 dark:bg-slate-950">
+        <section  className="bg-white py-16 dark:bg-slate-950">
             <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
                 <div className="mx-auto mb-12 max-w-3xl text-center">
                     <p className="text-sm uppercase tracking-[0.35em] text-blue-600 dark:text-blue-300">How it works</p>

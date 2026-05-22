@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <div className="flex h-screen justify-center items-center">
 
-      <Form className="flex shadow shadow-blue-300 p-5 rounded-2xl mx-auto  w-96 flex-col gap-4" onSubmit={onSubmit}>
+      <Form className="flex shadow bg-white shadow-blue-300 p-5 rounded-2xl mx-auto  w-96 flex-col gap-4" onSubmit={onSubmit}>
         <div className="flex justify-center items-center flex-col" >
           <Image alt="Idea Valult Logo" src={IdeaVault} height={"100"} width={"100"} />
           <h2 className="text-2xl font-bold"> <span className="font-bold text-blue-400">Idea</span>  Vault</h2>
