@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Button, Input } from "@heroui/react";
 import { useSession } from "@/lib/auth-client";
 import axios from "axios";
+import { formatDistanceToNow, parseJSON } from "date-fns";
+import Image from "next/image";
 
 const Profile = () => {
     const { data } = useSession();
@@ -17,7 +19,7 @@ const Profile = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [updating, setUpdating] = useState(false);
     const displayName = nameTouched ? name : user?.name || "";
-    const memberSince =  user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "";
+    const memberSince = user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "";
 
     useEffect(() => {
         const fetchIdeas = async () => {
@@ -29,11 +31,10 @@ const Profile = () => {
 
             try {
                 setLoadingIdeas(true);
-                const response = await axios.get("http://localhost:4000/userCreated/ideas");
+                const response = await axios.get("http://localhost:4000/userCreated/ideas" || "https://idea-vault-backend-gray.vercel.app/userCreated/ideas");
                 const payload = await response.data[0];
-                console.log(response);
-                
-                if (!response.status===200) {
+
+                if (!response.status === 200) {
                     setErrorMessage(payload?.error || "Unable to load your ideas.");
                     setIdeas([]);
                 } else {
@@ -71,7 +72,7 @@ const Profile = () => {
         setStatusMessage("");
 
         try {
-            
+
 
             const response = await axios.post("/api/auth/update-user", { name: updatedName })
             const result = await response.data;
@@ -92,8 +93,6 @@ const Profile = () => {
             setUpdating(false);
         }
     };
-
-    const totalCategories = [...new Set(ideas.map((idea) => idea.category))].length;
     // const totalTags = ideas.reduce((count, idea) => count + (idea.tags?.length || 0), 0);
 
     if (!user) {
@@ -106,6 +105,9 @@ const Profile = () => {
             </section>
         );
     }
+
+
+    const totalCategories = [...new Set(ideas.map((idea) => idea.category))].length;
 
     return (
         <section className="max-w-6xl mx-auto px-4 py-16">
@@ -194,15 +196,20 @@ const Profile = () => {
                         ) : (
                             <div className="space-y-4">
                                 {ideas.map((idea) => (
-                                    <article key={idea.id} className="rounded-3xl border border-slate-200 p-5 shadow-sm shadow-slate-200/50 transition hover:-translate-y-0.5">
+                                    <article key={idea.id} className="rounded-3xl border flex gap-5 border-slate-200 p-5 shadow-sm shadow-slate-200/50 transition hover:-translate-y-0.5">
+                                        <div>
+                                            <div className="">
+                                                <Image src={idea.image} height={"100"} alt={idea.title} />
+                                            </div>
+                                        </div>
                                         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                                             <div>
                                                 <p className="text-sm uppercase tracking-[0.2em] text-blue-400 font-semibold">{idea.category}</p>
+                                                <p className="text-sm text-slate-500">{user.createdAt.toLocaleDateString()}</p>
                                                 <h3 className="mt-2 text-xl font-semibold text-slate-900">{idea.title}</h3>
+                                                <p className="mt-4 text-slate-600 line-clamp-2">{idea.description}</p>
                                             </div>
-                                            <p className="text-sm text-slate-500">{new Date(idea.createdAt).toLocaleDateString()}</p>
                                         </div>
-                                        <p className="mt-4 text-slate-600 line-clamp-3">{idea.description}</p>
                                         {/* <div className="mt-4 flex flex-wrap gap-2">
                                             {idea.tags?.map((tag) => (
                                                 <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">

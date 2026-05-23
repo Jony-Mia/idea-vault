@@ -11,9 +11,9 @@ const imageMap = {
     slide3: Slide3,
 };
 
-const resolveIdeaId = (idea) => {
-    return idea._id || (typeof idea.id === 'string' ? idea.id : idea.id?.$oid) || 'unknown';
-};
+// const resolveIdeaId = (idea) => {
+//     return idea._id || (typeof idea.id === 'string' ? idea.id : idea.id?.$oid) || 'unknown';
+// };
 
 export default async function AllBookPage() {
     const ideas = await GetIdeas();
@@ -37,10 +37,11 @@ export default async function AllBookPage() {
 
                 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {ideas.map((idea) => {
-                        const ideaId = resolveIdeaId(idea);
-                        const previewImage = imageMap[idea.image] || Slide1;
-                        const commentsCount = idea.comments?.length || 0;
-                        const featuresCount = idea.features?.length || 0;
+                        const ideaId = idea._id
+                        console.log(idea);
+                        
+                        // const commentsCount = idea.comments?.length || 0;
+                        // const featuresCount = idea.features?.length || 0;
 
                         return (
                             <Link
@@ -82,8 +83,8 @@ export default async function AllBookPage() {
                                         ))}
                                     </div>
                                     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-4 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
-                                        <span>{commentsCount} comments</span>
-                                        <span>{featuresCount} features</span>
+                                        {/* <span>{commentsCount} comments</span> */}
+                                        {/* <span>{featuresCount} features</span> */}
                                     </div>
                                 </div>
                             </Link>
