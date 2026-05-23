@@ -11,6 +11,7 @@ import ToggleTheme from "./ToggleTheme";
 import { ArrowRightFromSquare, Bars, Person } from "@gravity-ui/icons";
 import { BookOpen } from "lucide-react";
 import Logout from "@/app/lib/Logout";
+import { useUser } from "@/context/UserContextProvider";
 
 const navItems = [
     { href: "/", label: "Home" },
@@ -24,8 +25,7 @@ const navItems = [
 const Navbar = () => {
     const pathname = usePathname();
     const [menuOpen, setMenuOpen] = useState(false);
-    const { data } = useSession();
-    const user = data?.user;
+    const { user } = useUser();
 
     const userInitials = user?.name
         ? user.name
@@ -104,31 +104,31 @@ const Navbar = () => {
                         {/* <Button variant="outline" className="sm:hidden bg-red-400 p-2 text-slate-700" onClick={() => setMenuOpen((open) => !open)}> */}
 
                         <div className="sm:hidden">
-                        <Dropdown className="">
-                            <Dropdown.Trigger variant="outline" className="sm:hidden bg-red-400 p-2 text-slate-700">
-                                <Bars className="h-5 w-5" />
-                            </Dropdown.Trigger>
-                            <Dropdown.Popover>
-                                <Dropdown.Menu aria-label="User menu">
-                                    <Dropdown.Item key="profile" as={Link} href="/profile">
-                                        <div className="flex items-center gap-2">
-                                            <Person className="h-4 w-4" />
-                                            My Profile
-                                        </div>
-                                    </Dropdown.Item>
-                                    <Dropdown.Item key="ideas" as={Link} href="/ideas">
-                                        <div className="flex items-center gap-2">
-                                            <BookOpen className="h-4 w-4" />
-                                            Browse ideas
-                                        </div>
-                                    </Dropdown.Item>
-                                    <Logout className="flex items-center gap-2 text-red-500">
-                                        <ArrowRightFromSquare className="h-4 w-4 text-red-500" />
-                                        <span className="text-red-500">Sign Out</span>
-                                    </Logout>
-                                </Dropdown.Menu>
-                            </Dropdown.Popover>
-                        </Dropdown>
+                            <Dropdown className="">
+                                <Dropdown.Trigger variant="outline" className="sm:hidden bg-red-400 p-2 text-slate-700">
+                                    <Bars className="h-5 w-5" />
+                                </Dropdown.Trigger>
+                                <Dropdown.Popover>
+                                    <Dropdown.Menu aria-label="User menu">
+                                        <Dropdown.Item key="profile" as={Link} href="/profile">
+                                            <div className="flex items-center gap-2">
+                                                <Person className="h-4 w-4" />
+                                                My Profile
+                                            </div>
+                                        </Dropdown.Item>
+                                        <Dropdown.Item key="ideas" as={Link} href="/ideas">
+                                            <div className="flex items-center gap-2">
+                                                <BookOpen className="h-4 w-4" />
+                                                Browse ideas
+                                            </div>
+                                        </Dropdown.Item>
+                                        <Logout className="flex items-center gap-2 text-red-500">
+                                            <ArrowRightFromSquare className="h-4 w-4 text-red-500" />
+                                            <span className="text-red-500">Sign Out</span>
+                                        </Logout>
+                                    </Dropdown.Menu>
+                                </Dropdown.Popover>
+                            </Dropdown>
 
 
                         </div>

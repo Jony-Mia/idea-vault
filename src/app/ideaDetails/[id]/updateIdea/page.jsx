@@ -2,10 +2,9 @@
 
 import { Button, Input, Label, ListBox, TextArea, Select, TextField } from '@heroui/react';
 import { useState } from 'react';
-import { PostUserIdea, GetIdeas } from '../api/api';
+
 import { useSession } from '@/lib/auth-client';
-import { useIdeas } from '@/context/IdeasContextProvider';
-import { ProtectedRoute } from '@/component/ProtectedRoute';
+import { UpdateUserIdea } from '@/app/api/api';
 
 const ideaCategories = [
     { value: 'technology', label: 'Technology' },
@@ -28,14 +27,13 @@ const DIFFICULTY_LEVELS = [
 
 
 const AddIdea = () => {
-
+    
     const [tagInput, setTagInput] = useState('');
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
-    const { data } = useSession();
+    const {data} = useSession();
     const id = data?.user?.id;
-    const { addIdea } = useIdeas();
-
+    console.log(id)
     const handleChange = (event) => {
         const { name, value } = event.target;
         setErrors((previous) => ({ ...previous, [name]: undefined }));
@@ -51,17 +49,11 @@ const AddIdea = () => {
         setIsLoading(true);
 
         try {
-            let formField = new FormData(e.target)
-            let formData = Object.fromEntries(formField)
-            const response = await PostUserIdea(formData, id);
-
-            // Add the new idea to the global context
-            if (response) {
-                addIdea(response);
-            }
+        let formField = new FormData(e.target)
+        let formData = Object.fromEntries(formField)
+         await UpdateUserIdea(formData, id);
 
             alert('Your startup idea was submitted successfully.');
-            e.target.reset();
         } catch (error) {
             console.error(error);
             alert('Submission failed. Please try again.');
@@ -218,7 +210,7 @@ const AddIdea = () => {
                                         </Button>
                                     </div>
                                 </TextField>
-
+                               
                             </div>
 
                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -275,10 +267,4 @@ const AddIdea = () => {
     );
 };
 
-export default function AddIdeaPage() {
-    return (
-        <ProtectedRoute redirectTo="/signup">
-            <AddIdea />
-        </ProtectedRoute>
-    );
-}
+export default AddIdea;

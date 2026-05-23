@@ -84,7 +84,6 @@ export default function Login() {
 
         <Link href="/login">Already have an account? <span className="text-blue-400">Login</span></Link>
 
-
         <div>
           <Button onClick={continueWithGoogle} variant="outline" className="flex dark:bg-white dark:text-black items-center w-full gap-2 mx-auto mt-5">
             <Image alt="Cntinue with Google" src={google} height={"20"} width={"20"} />
