@@ -105,13 +105,13 @@ const Featured = () => {
                                         </p>
                                     </div>
 
-                                    <div className="flex flex-wrap gap-2">
-                                        {tagList.slice(0, 4).map((tag) => (
+                                    {/* <div className="flex flex-wrap gap-2">
+                                        {tagList?.slice(0, 4).map((tag) => (
                                             <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">
                                                 {tag}
                                             </span>
                                         ))}
-                                    </div>
+                                    </div> */}
 
                                     <div className="flex flex-wrap items-center justify-between border-t border-slate-200 pt-4 text-sm text-slate-500 dark:border-slate-800 dark:text-slate-400">
                                         <span className="font-semibold text-slate-900 dark:text-white">View details</span>

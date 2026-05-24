@@ -73,7 +73,7 @@ export default function Profile({ UserInputedIdeas }) {
                                 <div className="h-14 rounded-2xl bg-slate-100 animate-pulse" />
                                 <div className="h-14 rounded-2xl bg-slate-100 animate-pulse" />
                             </div>
-                        ) : ideas.length === 0 ? (
+                        ) : ideas?.length === 0 ? (
                             <div className="rounded-3xl border border-dashed border-slate-300 p-8 text-center text-slate-600">
                                 <p className="font-semibold">No ideas yet.</p>
                                 <p className="mt-2">Start by adding your first startup idea.</p>
@@ -82,8 +82,8 @@ export default function Profile({ UserInputedIdeas }) {
                             <div className="space-y-4 ">
                                 {ideas?.map((idea) => (
                                     <IdeasCard
-                                        key={String(idea.id)}
-                                        id={String(idea.id)}
+                                        key={String(idea._id)}
+                                        id={idea._id}
                                         idea={idea}
                                         image={idea?.image_url}
                                         title={idea?.title}
@@ -155,7 +155,7 @@ export const IdeasCard = ({ id, image, category, date, title, description, idea 
                 </div>
                 {/* <div className=""> */}
                 <ButtonGroup className="absolute z-10 top-2 right-2 " variant="outline">
-                    <Button onClick={() => DeleteUserIdea(idea, idea.id)} variant="danger" ><Trash /></Button>
+                    {/* <Button onClick={() => DeleteUserIdea(id)} variant="danger" ><Trash /></Button> */}
                     <Link href={`/ideaDetails/${id}/updateIdea`}>
                         <Button  >
                             <PenBoxIcon />
