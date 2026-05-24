@@ -99,26 +99,26 @@ const AddIdea = () => {
 
 
                             <div>
-                                <TextField id="description" aria-label="Brief description" required error={errors.description}>
-                                    <TextArea
-                                        name="description"
-                                        rows={4}
+                                {/* <TextField id="description" > */}
+                                    <TextArea required error={errors.description}
+                                        name='description'
+                                        rows={4} aria-label="Brief description"
                                         onChange={handleChange}
                                         placeholder="Write a short summary of the idea."
                                     />
-                                </TextField>
+                                {/* </TextField> */}
                             </div>
                             <div className='grid gap-6 lg:grid-cols-2'>
-                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Your Label' placeholder="Select Categories">
+                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Your Label' placeholder="Select Categories" name='category' >
                                     {/* <Label>Level</Label> */}
                                     <Select.Trigger>
                                         <Select.Value />
                                         <Select.Indicator />
                                     </Select.Trigger>
                                     <Select.Popover>
-                                        <ListBox>
+                                        <ListBox >
                                             {ideaCategories.map((category) => (
-                                                <ListBox.Item key={category.value} id={category.value} value={category.value}>
+                                                <ListBox.Item key={category.value} id={category.value} value={category.value} textValue={category.value}>
                                                     {category.label}
                                                 </ListBox.Item>
                                             ))}
@@ -127,7 +127,7 @@ const AddIdea = () => {
                                 </Select>
 
 
-                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Label' placeholder="Select Level">
+                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Label' placeholder="Select Level" name='level'>
                                     <Select.Trigger>
                                         <Select.Value />
                                         <Select.Indicator />
@@ -145,46 +145,48 @@ const AddIdea = () => {
                             </div>
 
                             <div className="grid gap-6 lg:grid-cols-2">
-                                <TextField id="problem" aria-label="Problem statement" required error={errors.problem}>
+                                <TextField id="problem">
                                     <TextArea
+                                        aria-label="Problem statement"
                                         name="problem"
                                         rows={4}
                                         onChange={handleChange}
                                         placeholder="What issue does this idea solve?"
-
+                                        required error={errors.problem}
                                     />
                                 </TextField>
 
-                                <TextField id="solution" aria-label="Solution" required error={errors.solution}>
+                                {/* <TextField id="solution"  > */}
                                     <TextArea
-                                        name="solution"
-                                        rows={4}
+                                        name="solution" error={errors.solution}
+                                        rows={4} required
                                         onChange={handleChange}
                                         placeholder="How does your idea solve the problem?"
+                                         aria-label="Solution"
                                     />
-                                </TextField>
+                                {/* </TextField> */}
                             </div>
 
                             <div className="grid gap-6 lg:grid-cols-2">
-                                <TextField id="targetMarket" aria-label="Target market" required error={errors.targetMarket}>
-                                    <TextArea
+                                {/* <TextField id="targetMarket" > */}
+                                    <TextArea required
                                         name="targetMarket"
                                         rows={3}
                                         onChange={handleChange}
                                         placeholder="Describe the ideal user or customer."
-
+                                        aria-label="Target market" error={errors.targetMarket}
                                     />
-                                </TextField>
+                                {/* </TextField> */}
 
-                                <TextField id="competitors" aria-label="Competitors & alternatives">
+                                {/* <TextField id="competitors" > */}
                                     <TextArea
                                         name="competitors"
                                         rows={3}
                                         onChange={handleChange}
                                         placeholder="Who else is building something similar?"
-
+                                        aria-label="Competitors & alternatives"
                                     />
-                                </TextField>
+                                {/* </TextField> */}
                             </div>
 
                             {/* <div className="grid gap-6 lg:grid-cols-2">

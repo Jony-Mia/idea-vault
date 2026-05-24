@@ -1,6 +1,10 @@
+"use server";
+
 import axios from "axios";
+import { revalidatePath } from "next/cache";
 
 const API = axios.create({ baseURL: 'http://localhost:4000'})
+
 
 export const GetIdeas = async ()=> {
     let ideasData = await API.get('/ideas');
@@ -24,7 +28,7 @@ export const UserInsertedIdeas = async ()=>{
 }
 export const ProfileIdeas = async (id)=>{
     const userIdeas= await API.get(`/profileIdeas/${id}`,id);
-    console.log(id)
+    // console.log(id)
     return userIdeas.data;
 }
 // Update user Name
@@ -33,8 +37,10 @@ export const UpdateUserName = async (data,id)=>{
     return updateName.data;
 }
 // Delete ideas
-export const DeleteUserIdea= async (idea, id)=>{
-    const deleteIdea= await API.patch(`/deleteUserIdea/`,id)
+export const DeleteUserIdea= async (id)=>{
+    const deleteIdea= await API.delete(`/deleteUserIdea/${id}`)
+    revalidatePath('/profile');
+    
     return deleteIdea.data;
 }
 // Update user ideas

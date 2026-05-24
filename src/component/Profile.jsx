@@ -132,7 +132,7 @@ export default function Profile({ UserInputedIdeas }) {
 }
 
 export const IdeasCard = ({ id, image, category, date, title, description, idea }) => {
-    console.log(id)
+    // console.log(id)
     return (
         <div className="relative">
             <article
@@ -155,7 +155,7 @@ export const IdeasCard = ({ id, image, category, date, title, description, idea 
                 </div>
                 {/* <div className=""> */}
                 <ButtonGroup className="absolute z-10 top-2 right-2 " variant="outline">
-                    {/* <Button onClick={() => DeleteUserIdea(id)} variant="danger" ><Trash /></Button> */}
+                    <Button onClick={() => DeleteUserIdea(id)} variant="danger" ><Trash /></Button>
                     <Link href={`/ideaDetails/${id}/updateIdea`}>
                         <Button  >
                             <PenBoxIcon />
