@@ -11,10 +11,11 @@ export const GetIdeaDetails = async (id)=> {
     return ideasData.data;
 }
 export const PostUserIdea = async (data, id)=>{
-    let CreateIdea = await API.patch(`/userCreated/${id}`,data);
+    let CreateIdea = await API.post(`/userCreated`,{data,id});
     return CreateIdea.data;
 }
-export const UserInsertedIdeas = async ()=>{
+
+export const UserInsertedIdeas = async (id)=>{
     const userIdeas= await API.get("/userCreatedIdeas");
     return userIdeas.data[0];
 }
@@ -23,7 +24,7 @@ export const UpdateUserName = async (data,id)=>{
     return updateName.data;
 }
 export const DeleteUserIdea= async (idea, id)=>{
-    const deleteIdea= await API.patch(`/deleteUserIdea/${id}`,idea)
+    const deleteIdea= await API.patch(`/deleteUserIdea/`,id)
     return deleteIdea.data;
 }
 export const UpdateUserIdea = async (formData, id)=>{
