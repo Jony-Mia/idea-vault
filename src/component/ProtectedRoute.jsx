@@ -2,36 +2,26 @@
 
 import { useSession } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
-import { useEffect, ReactNode } from 'react';
+import { useEffect } from 'react';
 
 
-
-export const ProtectedRoute = ({
-    children,
-    redirectTo = '/signup',
-    fallback = <LoadingFallback />
-})=> {
+export const ProtectedRoute = ({children, redirectTo = '/signup', fallback = <LoadingFallback />})=> {
     const { data: sessionData, isPending } = useSession();
     const router = useRouter();
 
     useEffect(() => {
-        if (!isPending && !sessionData?.user) {
-            // Redirect to signup or specified route if not authenticated
-            router.push(redirectTo);
-        }
+        if (!isPending && !sessionData?.user) router.push(redirectTo);
+        
     }, [sessionData, isPending, router, redirectTo]);
 
-    // Show loading state while checking authentication
     if (isPending) {
         return fallback;
     }
 
-    // Show content only if authenticated
     if (sessionData?.user) {
         return <>{children}</>;
     }
 
-    // This shouldn't be reached due to redirect, but as a safety measure
     return null;
 };
 

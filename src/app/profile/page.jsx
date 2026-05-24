@@ -1,5 +1,6 @@
 
-import ProfilePageWrapper from './ProfilePageWrapper';
+// import ProfilePageWrapper from './ProfilePageWrapper';
+import Profile from '@/component/Profile';
 import { UserInsertedIdeas } from '../api/api';
 
 export default async function ProfilePage() {
@@ -11,6 +12,6 @@ export default async function ProfilePage() {
         console.error('Error fetching user ideas:', error);
     }
 
-    return <ProfilePageWrapper UserInputedIdeas={UserInputedIdeas} />
+    return <Profile UserInputedIdeas={UserInputedIdeas} />
 }
 
