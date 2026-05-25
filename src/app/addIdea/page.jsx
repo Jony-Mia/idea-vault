@@ -20,11 +20,33 @@ const ideaCategories = [
     { value: 'entertainment', label: 'Entertainment' },
 ];
 
-const DIFFICULTY_LEVELS = [
-    { value: 'low', label: 'Easy' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'high', label: 'Hard' },
+const Stage =  [
+  {
+    value: "idea",
+    label: "Idea"
+  },
+  {
+    value: "validation",
+    label: "Validation"
+  },
+  {
+    value: "mvp",
+    label: "MVP"
+  },
+  {
+    value: "launch",
+    label: "Launch"
+  },
+  {
+    value: "scaling",
+    label: "Scaling"
+  },
+  {
+    value: "maturity",
+    label: "Maturity"
+  }
 ];
+
 
 
 const AddIdea = () => {
@@ -110,7 +132,7 @@ const AddIdea = () => {
                             </div>
                             <div className='grid gap-6 lg:grid-cols-2'>
                                 <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Your Label' placeholder="Select Categories" name='category' >
-                                    {/* <Label>Level</Label> */}
+                                    {/* <Label>stage</Label> */}
                                     <Select.Trigger>
                                         <Select.Value />
                                         <Select.Indicator />
@@ -127,16 +149,16 @@ const AddIdea = () => {
                                 </Select>
 
 
-                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Label' placeholder="Select Level" name='level'>
+                                <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Label' placeholder="Select stage" name='stage'>
                                     <Select.Trigger>
                                         <Select.Value />
                                         <Select.Indicator />
                                     </Select.Trigger>
                                     <Select.Popover>
                                         <ListBox>
-                                            {DIFFICULTY_LEVELS.map((level) => (
-                                                <ListBox.Item key={level.value} id={level.value} value={level.value}>
-                                                    {level.label}
+                                            {Stage.map((stage) => (
+                                                <ListBox.Item key={stage.value} id={stage.value} textValue={stage.value} value={stage.value}>
+                                                    {stage.label}
                                                 </ListBox.Item>
                                             ))}
                                         </ListBox>

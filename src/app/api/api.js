@@ -3,7 +3,7 @@
 import axios from "axios";
 import { revalidatePath } from "next/cache";
 
-const API = axios.create({ baseURL: 'http://localhost:4000'})
+const API = axios.create({ baseURL: 'https://idea-backend-beta.vercel.app'})
 
 
 export const GetIdeas = async ()=> {
@@ -45,6 +45,9 @@ export const DeleteUserIdea= async (id)=>{
 }
 // Update user ideas
 export const UpdateUserIdea = async (formData, id)=>{
+    console.log(formData, id)
     const newIdea = await API.patch(`/updateUserIdes/${id}`,formData);
+    revalidatePath('/profile');
+
     return newIdea.data;
 }

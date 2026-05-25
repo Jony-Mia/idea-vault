@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { GetIdeas } from '@/app/api/api';
 import { useIdeas } from '@/context/IdeasContextProvider';
+import { Input, TextField } from '@heroui/react';
 
-export default function AllBookPage() {
+export default function AllIdeas() {
     const { ideas: contextIdeas, setAllIdeas } = useIdeas();
     const [ideas, setIdeas] = useState(contextIdeas);
     const [searchTerm, setSearchTerm] = useState('');
@@ -81,15 +82,15 @@ export default function AllBookPage() {
                 {/* Search and Filter Section */}
                 <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                     {/* Search Bar */}
-                    <div className="flex-1">
-                        <input
+                    <TextField aria-label='Search Bar' className="flex-1">
+                        <Input
                             type="text"
                             placeholder="Search by title or description..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-500 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-400 dark:focus:border-blue-400"
+                            //className="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-500 transition focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder-slate-400 dark:focus:border-blue-400"
                         />
-                    </div>
+                    </TextField>
 
                     {/* Category Filter */}
                     <select

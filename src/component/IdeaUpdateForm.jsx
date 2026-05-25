@@ -1,4 +1,5 @@
 "use client";
+import { UpdateUserIdea } from '@/app/api/api';
 import { useSession } from '@/lib/auth-client';
 import { Input, TextField, ListBox, Select, TextArea, Button } from '@heroui/react';
 import React, { useState } from 'react';
@@ -15,20 +16,43 @@ const ideaCategories = [
     { value: 'entertainment', label: 'Entertainment' },
 ];
 
-const DIFFICULTY_LEVELS = [
-    { value: 'low', label: 'Easy' },
-    { value: 'medium', label: 'Medium' },
-    { value: 'high', label: 'Hard' },
+const DIFFICULTY_LEVELS =  [
+  {
+    value: "idea",
+    label: "Idea"
+  },
+  {
+    value: "validation",
+    label: "Validation"
+  },
+  {
+    value: "mvp",
+    label: "MVP"
+  },
+  {
+    value: "launch",
+    label: "Launch"
+  },
+  {
+    value: "scaling",
+    label: "Scaling"
+  },
+  {
+    value: "maturity",
+    label: "Maturity"
+  }
 ];
 
 const IdeaUpdateForm = ({ idea }) => {
     let [errors, setErrors] = useState([])
     console.log(idea)
     let { data } = useSession();
-    const userId = data?.user?.id;
+    const userId = idea._id;
 
     const handleChange = (event) => {
         const { name, value } = event.target;
+        console.log(name, value);
+        
         setErrors((previous) => ({ ...previous, [name]: undefined }));
     };
     const handleSubmit = async (e) => {
@@ -57,7 +81,7 @@ const IdeaUpdateForm = ({ idea }) => {
                 <div className="grid gap-6 ">
                     <TextField type="text" name="title" aria-label="Idea title" required>
                         <Input
-                            value={idea.title}
+                            defaultValue={idea.title}
                             onchange={handleChange}
                             placeholder="Name of Your Idea"
                             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
@@ -67,7 +91,7 @@ const IdeaUpdateForm = ({ idea }) => {
                 <div className="grid gap-6 ">
                     <TextField type="url" name="image_url" aria-label="Idea title" required>
                         <Input
-                            value={idea.image_url}
+                            defaultValue={idea.image_url}
                             required
                             placeholder="Image URL"
                             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
@@ -76,16 +100,16 @@ const IdeaUpdateForm = ({ idea }) => {
                 </div>
 
 
-                {/* <div>
-                                <TextField id="description" aria-label="Brief description" required error={errors.description}>
-                                    <TextArea
-                                        name="description"
-                                        rows={4}
-                                        onchange={handleChange}
-                                        placeholder="Write a short summary of the idea."
-                                    />
-                                </TextField>
-                            </div> */}
+                <div>
+                    <TextField id="description" aria-label="Brief description" required error={errors.description}>
+                        <TextArea
+                            name="description"
+                            rows={4}
+                            onchange={handleChange}
+                            placeholder="Write a short summary of the idea."
+                        />
+                    </TextField>
+                </div>
                 <div className='grid gap-6 lg:grid-cols-2'>
                     <Select className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100" aria-label='Select Your Label' name='category' placeholder="Select Categories">
                         {/* <Label>Level</Label> */}
@@ -96,7 +120,7 @@ const IdeaUpdateForm = ({ idea }) => {
                         <Select.Popover>
                             <ListBox>
                                 {ideaCategories.map((category) => (
-                                    <ListBox.Item key={category.value} id={category.value} value={category.value}>
+                                    <ListBox.Item key={category.value} id={category.value} defaultValue={category.value}>
                                         {category.label}
                                     </ListBox.Item>
                                 ))}
@@ -113,7 +137,7 @@ const IdeaUpdateForm = ({ idea }) => {
                         <Select.Popover>
                             <ListBox>
                                 {DIFFICULTY_LEVELS.map((level) => (
-                                    <ListBox.Item key={level.value} id={level.value} value={level.value}>
+                                    <ListBox.Item key={level.value} id={level.value} defaultValue={level.value}>
                                         {level.label}
                                     </ListBox.Item>
                                 ))}
@@ -123,50 +147,50 @@ const IdeaUpdateForm = ({ idea }) => {
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                    <TextField id="problem" aria-label="Problem statement" required>
-                        <TextArea
+                    {/* <TextField id="problem"> */}
+                        <TextArea required
                             name="problem"
                             rows={4}
-                            value={idea.problem}
+                            defaultValue={idea.problem}
                             onchange={handleChange}
                             placeholder="What issue does this idea solve?"
-
+                             aria-label="Problem statement" 
                         />
-                    </TextField>
+                    {/* </TextField> */}
 
-                    <TextField id="solution" aria-label="Solution" required >
-                        <TextArea
+                    {/* <TextField id="solution"> */}
+                        <TextArea aria-label="Solution" required 
                             name="solution"
-                            value={idea.solution}
+                            defaultValue={idea.solution}
                             rows={4}
                             onchange={handleChange}
                             placeholder="How does your idea solve the problem?"
                         />
-                    </TextField>
+                    {/* </TextField> */}
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                    <TextField id="targetMarket" aria-label="Target market" required >
-                        <TextArea
+                    {/* <TextField id="targetMarket"> */}
+                        <TextArea aria-label="Target market" required 
                             name="targetMarket"
                             rows={3}
-                            value={idea.targetMarket}
+                            defaultValue={idea.targetMarket}
                             onchange={handleChange}
                             placeholder="Describe the ideal user or customer."
 
                         />
-                    </TextField>
+                    {/* </TextField> */}
 
-                    <TextField id="competitors" aria-label="Competitors & alternatives">
-                        <TextArea
+                    {/* <TextField id="competitors"> */}
+                        <TextArea aria-label="Competitors & alternatives"
                             name="competitors"
                             rows={3}
-                            value={idea.competitors}
+                            defaultValue={idea.competitors}
                             onchange={handleChange}
                             placeholder="Who else is building something similar?"
 
                         />
-                    </TextField>
+                    {/* </TextField> */}
                 </div>
 
                 {/* <div className="grid gap-6 lg:grid-cols-2">
@@ -180,13 +204,13 @@ const IdeaUpdateForm = ({ idea }) => {
                             </div> */}
 
                 <div className="space-y-3">
-                    <TextField name="tags" aria-label="Tags (optional)">
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <TextField className="flex flex-col gap-3 sm:flex-row sm:items-center" name="tags" aria-label="Tags (optional)">
+                        {/* <div className="flex flex-col gap-3 sm:flex-row sm:items-center"> */}
                             <Input
                                 // onchange={(event) => setTagInput(event.target.value)}
                                 // onKeyDown={(event) => event.key === 'Enter' && (event.preventDefault(), addTag())}
                                 className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
-                                value={idea.tags}
+                                defaultValue={idea.tags}
                                 placeholder="Examples: AI, marketplace, health"
                             />
                             <Button
@@ -196,7 +220,7 @@ const IdeaUpdateForm = ({ idea }) => {
                             >
                                 Add tag
                             </Button>
-                        </div>
+                        {/* </div> */}
                     </TextField>
 
                 </div>

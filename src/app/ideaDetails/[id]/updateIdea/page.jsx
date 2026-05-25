@@ -1,39 +1,9 @@
-// "use client";
-
-import { Button, Input, Label, ListBox, TextArea, Select, TextField } from '@heroui/react';
-// import { useState } from 'react';
-
-// import { useSession } from '@/lib/auth-client';
-import { GetIdeaDetails, UpdateUserIdea } from '@/app/api/api';
-import { auth } from '@/lib/auth';
-import { headers } from 'next/headers';
+import { GetIdeaDetails } from '@/app/api/api';
 import IdeaUpdateForm from '@/component/IdeaUpdateForm';
-
-
 
 const AddIdea = async ({ params }) => {
     const { id } = await params;
     const idea = await GetIdeaDetails(id);
-    console.log(id, idea);
-
-    // const [tagInput, setTagInput] = useState('');
-    // const [errors, setErrors] = useState({});
-    // const [isLoading, setIsLoading] = useState(false);
-    // const { data } = useSession();
-    // const { user } = await auth.api.getSession({
-    //     headers: await headers()
-    // })
-    // console.log(user);
-
-    // const userId = user?.id;
-    // console.log(userId)
-    // const handleChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setErrors((previous) => ({ ...previous, [name]: undefined }));
-    // };
-
-
-
 
     return (
         <div className="min-h-screen bg-slate-50 py-10 dark:bg-slate-950 sm:py-16">
