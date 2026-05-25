@@ -33,8 +33,8 @@ export default function AboutPage() {
                                 <p>Keep your best ideas visible and ready for the next round of validation.</p>
                             </div>
                         </div>
-                        <Link href="/all-book" className="mt-8 inline-flex rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
-                            Browse ideas
+                        <Link href="/ideas" className="mt-8 inline-flex rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">
+                            All Ideas
                         </Link>
                     </div>
                 </div>

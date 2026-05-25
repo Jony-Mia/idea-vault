@@ -34,7 +34,7 @@ const Slidered = () => {
                                 Capture bold concepts, compare them visually, and discover the strongest path to market with community feedback.
                             </p>
                             <div className="mt-10 flex flex-wrap gap-4">
-                                <Link href="/all-book" className="hero-cta inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-600">
+                                <Link href="/ideas" className="hero-cta inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-600">
                                     Explore ideas
                                 </Link>
                                 <Link href="/addIdea" className="hero-cta inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20">
@@ -77,7 +77,7 @@ const Slidered = () => {
                                 Use the dashboard to compare market opportunities, explain your unique value, and plan your first launch steps.
                             </p>
                             <div className="mt-10 flex flex-wrap gap-4">
-                                <Link href="/all-book" className="hero-cta inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-600">
+                                <Link href="/ideas" className="hero-cta inline-flex items-center justify-center rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-blue-500/20 hover:bg-blue-600">
                                     Discover ideas
                                 </Link>
                                 <Link href="/addIdea" className="hero-cta inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-100">

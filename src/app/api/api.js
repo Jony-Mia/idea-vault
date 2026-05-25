@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 
 const API = axios.create({ baseURL: 'https://idea-backend-beta.vercel.app'})
 
-
 export const GetIdeas = async ()=> {
     let ideasData = await API.get('/ideas');
     return ideasData.data;

@@ -120,7 +120,7 @@ export default function Profile({ UserInputedIdeas }) {
                                 className="block rounded-3xl border border-blue-100 bg-blue-50 px-5 py-4 text-slate-900 hover:bg-blue-100">
                                 Add another idea to your vault.
                             </Link>
-                            <Link href="/all-book" className="block rounded-3xl border border-slate-100 bg-slate-50 px-5 py-4 text-slate-900 hover:bg-slate-100">
+                            <Link href="/ideas" className="block rounded-3xl border border-slate-100 bg-slate-50 px-5 py-4 text-slate-900 hover:bg-slate-100">
                                 Browse other ideas and see what people are sharing.
                             </Link>
                         </div>

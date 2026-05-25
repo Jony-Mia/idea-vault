@@ -74,7 +74,7 @@ const continueWithGoogle =  async ()=>{
             </Checkbox.Content>
           </Checkbox>
 
-          <Button slot="close" className={"w-full"}>Create Account</Button>
+          <Button type="submit" className={"w-full"}>Create Account</Button>
           <Link href="/login">Already have an account? <span className="text-blue-400">Login</span></Link>
 
 

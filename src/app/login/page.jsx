@@ -14,7 +14,7 @@ export default function Login() {
     const data = Object.fromEntries(formData.entries())
     // alert(`Form submitted with: ${JSON.stringify(data, null, 2)}`);
 
-    await authClient.signUp.email({
+    await authClient.signIn.email({
       // name: data.name,
       email: data.email,
       password: data.password,
@@ -77,12 +77,12 @@ export default function Login() {
         </TextField>
 
         <div className={`flex  justify-center gap-2`}>
-          <Button onClick={continueWithGoogle} type="submit" className={"w-full font-bold"}>
+          <Button  type="submit" className={"w-full font-bold"}>
             Login
           </Button>
         </div>
 
-        <Link href="/login">Already have an account? <span className="text-blue-400">Login</span></Link>
+        <Link href="/signup">Don't have an account? <span className="text-blue-400">Signup</span></Link>
 
         <div>
           <Button onClick={continueWithGoogle} variant="outline" className="flex dark:bg-white dark:text-black items-center w-full gap-2 mx-auto mt-5">
