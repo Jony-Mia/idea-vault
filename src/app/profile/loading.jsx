@@ -1,6 +1,5 @@
 import { Button } from '@heroui/react';
 import Link from 'next/link';
-import React from 'react';
 
 const loading = () => {
             return (

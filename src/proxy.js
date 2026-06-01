@@ -7,10 +7,6 @@ export async function proxy(request) {
     if (!session) return NextResponse.redirect(new URL('/login', request.url));
 }
 
-// This function can be marked `async` if using `await` inside
-// Alternatively, you can use a default export                
-// export default function proxy(request) { ... }             
-
 export const config = {
     matcher: [
         '/about/:path*',

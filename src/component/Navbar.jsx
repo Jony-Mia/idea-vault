@@ -34,12 +34,12 @@ const Navbar = () => {
             .join("")
             .slice(0, 2)
             .toUpperCase()
-        : "IV";
+        : "NA";
 
     const isActive = (href) => pathname === href;
 
     return (
-        <div className="relative border-b border-slate-200/70 bg-white/95 backdrop-blur-xl shadow-sm">
+        <div suppressHydrationWarning className="relative border-b border-slate-200/70 bg-white/95 backdrop-blur-xl shadow-sm">
             <div className="pointer-events-none absolute right-8 top-1/2 h-32 w-32 -translate-y-1/2 rounded-3xl border border-sky-300/40 bg-sky-400/10 blur-xl animate-float" />
             <div className="pointer-events-none absolute left-6 top-6 h-24 w-24 rounded-3xl border border-violet-300/30 bg-violet-500/10 blur-xl animate-float-slow" />
 

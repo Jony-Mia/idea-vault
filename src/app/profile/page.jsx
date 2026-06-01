@@ -7,8 +7,7 @@ export default async function ProfilePage() {
     let session = await auth.api?.getSession({
         headers: await headers()
     });
-
-    console.log(session);
+    
     const userId = session.user?.id
     let UserInputedIdeas = await ProfileIdeas(userId);
 
