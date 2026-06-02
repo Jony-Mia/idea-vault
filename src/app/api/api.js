@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const API = axios.create({ baseURL: 'https://idea-backend-beta.vercel.app'})
 
@@ -17,12 +18,13 @@ export const GetIdeaDetails = async (id)=> {
 // Create Ideas
 export const PostUserIdea = async (data, id)=>{
     let CreateIdea = await API.post(`/userCreated`,{data,id});
+    // redirect("/ideas")
     return CreateIdea.data;
 }
 // Ideas inserted by user
 export const UserInsertedIdeas = async ()=>{
     const userIdeas= await API.get(`/userCreatedIdeas/`);
-    console.log(id)
+    // console.log(id)
     return userIdeas.data;
 }
 export const ProfileIdeas = async (id)=>{

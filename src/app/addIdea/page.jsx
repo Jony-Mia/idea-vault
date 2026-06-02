@@ -83,6 +83,7 @@ const AddIdea = () => {
             }
 
             alert('Your startup idea was submitted successfully.');
+        
             e.target.reset();
         } catch (error) {
             console.error(error);
